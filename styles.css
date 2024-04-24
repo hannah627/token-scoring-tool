@@ -1,0 +1,181 @@
+/* colors */
+header {
+    background-color: #31572C;
+}
+
+a {
+    color: #31572C;
+}
+
+nav li a:hover:not(:has(img)),
+#activeNavbarLink:hover {
+    background-color: #3b5b1f;
+}
+
+#activeNavbarLink {
+    background-color: #456924;
+}
+
+input::file-selector-button,
+#addButton,
+nav ul {
+    background-color: #4F772D;
+    color: white;
+}
+
+main>section {
+    background-color: #BECE7A;
+}
+
+.subSection {
+    background-color: #F2F7BC;
+}
+
+body {
+    background-color: #F7FBDA;
+}
+
+
+
+
+
+
+
+
+/* general */
+body {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+    margin: 0;
+}
+
+main {
+    width: 80%;
+    margin-bottom: 40px;
+}
+
+h1,
+h2,
+h3,
+h4,
+label {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+}
+
+header {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    width: 100%;
+    color: white;
+}
+
+
+nav {
+    width: 100%;
+}
+
+nav ul {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav img {
+    width: 25px;
+    height: 25px;
+}
+
+nav a:has(img) {
+    padding-bottom: 4px;
+    padding-top: 12px;
+}
+
+
+body,
+main,
+header {
+    display: flex;
+    flex-direction: column;
+}
+
+main>section {
+    padding: 0.75rem;
+    border-radius: 15px;
+    margin-top: 1.5rem;
+}
+
+body, header {
+    align-items: center;
+}
+
+.subSection {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.large-label {
+    font-size: 1.2em;
+}
+
+
+
+input[type="file"] {
+    font-size: 1rem;
+}
+
+input::file-selector-button {
+    font-size: 1rem;
+    font-family: 'PT Sans', sans-serif;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+
+
+
+
+button {
+    width: 40%;
+    font-size: 1.5rem;
+    font-family: 'PT Sans', sans-serif;
+    border: none;
+    border-radius: 15px;
+    transition: 1s;
+}
