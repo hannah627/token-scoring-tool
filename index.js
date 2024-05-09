@@ -1,14 +1,5 @@
-let currTokensList
-let currToken = 0;
-
-let tokensToAddToStopWords = [];
-let tokensToAddToLexicon = [];
-
-let globalLexiconWords = [];
-let globalStopWords = [];
-
-let numLexiconFilesProcessed = 0;
-
+let termsList = [];
+let currTerm = 0;
 
 // when the page loads, call "init"
 window.addEventListener("load", init);
@@ -19,130 +10,67 @@ function init() {
 
     // hiding things that shouldn't be visible when the page loads
     id("scoringSection").style.display = "none";
-    id("listsSection").style.display = "none";
+    id("resultsSection").style.display = "none";
 
-    // adding general event listeners (options section button, main text input)
-    id("addButton").addEventListener("click", addButtonClick);
-    id("ignoreButton").addEventListener("click", ignoreButtonClick);
+    id("inputFile").addEventListener("change", fileInputChange);
 
-    id("inputTextFile").addEventListener("change", textFileInputted);
-
-}
-
-function addButtonClick() {
-    // add to lexicon
-    let token = currTokensList[currToken];
-    tokensToAddToLexicon.push(token);
-    let line = token + ",6"
-    if (id("listsSection").style.display == "none") {
-        id("listsSection").style.display = "flex"
-    }
-    appendTextElementToSection('p', id("newLexiconTokens"), line)
-
-    displayNextToken();
-}
-
-function ignoreButtonClick() {
-    // add to stopwords list
-    let token = currTokensList[currToken];
-    globalStopWords.push(token);
-    tokensToAddToStopWords.push(token);
-    // this section is hidden until at least one word is added to one of the sections
-    if (id("listsSection").style.display == "none") {
-        id("listsSection").style.display = "flex"
-    }
-    appendTextElementToSection('p', id("newStopWords"), token);
-
-    displayNextToken();
-}
-
-function displayNextToken() {
-    currToken = currToken + 1;
-    id("token").textContent = currTokensList[currToken];
+    // finding scores radio buttons and adding event listeners to them
+    let scoresButtons = document.querySelectorAll('input[name=scores]');
+    scoresButtons.forEach((e) => e.addEventListener("change", (e) => {selectScore(e)}));
 }
 
 
 
-
-
-
-
-
-async function textFileInputted() {
-    id("scoringSection").style.display = "flex"; // unhide the buttons
-
-    await getLexiconFiles();
-    await getStopWordsFiles();
-    processInputtedTextFile();
-
-}
-
-
-
-function processInputtedTextFile() {
-    let fileInput = id("inputTextFile");
+function fileInputChange() {
+    let fileInput = id("inputFile");
     let fr = new FileReader();
     fr.onload = function () {
         let file_text = fr.result;
-        processText(file_text);
+        let file_type = fileInput.files[0].type;
+        processLexicon(file_text, file_type);
     }
     fr.readAsText(fileInput.files[0]);
 }
 
+function processLexicon(text, fileType) {
+    termsList = [];
+    currTerm = 0;
 
-
-
-
-async function getLexiconFiles() {
-    globalLexiconWords = [];
-    let fileInput = id("inputLexiconFile");
-    let files = fileInput.files;
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        let fr = new FileReader();
-        fr.onload = function () {
-            let file_content = fr.result;
-            processLexicon(file_content);
-            // checkIfAllLexiconsLoaded(files.length); // if i decide that i need to do things only after all lexicons loaded
-        };
-        fr.readAsText(file);
+    if (fileType == "text/csv") {
+        termsList = splitLexiconIntoTermsAndScores(text);
+    } else {  // fileType = "text/plain"
+        termsList = splitPlainTextLexicon(text);
     }
+
+    id("term").textContent = termsList[currTerm];
+    id("scoringSection").style.display = "block";
 }
 
-async function processLexicon(fileContent) {
-    let lines = fileContent.split('\n');
-    let columns = [];
-    lines.forEach(line => {
-        columns = line.split(',');
-        let token = columns[0];
-        globalLexiconWords.push(token);
-    });
-}
-
-
-
-
-async function getStopWordsFiles() {
-    globalStopWords = [];
-    let fileInput = id("inputStopwordsFile");
-    let files = fileInput.files;
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        let fr = new FileReader();
-        fr.onload = function () {
-            let file_content = fr.result;
-            processStopWords(file_content);
-        };
-        fr.readAsText(file);
-    }
-}
-
-function processStopWords(fileContent) {
-    let lines = fileContent.split('\n');
+function splitLexiconIntoTermsAndScores(text) {
+    let termsList = [];
+    let lines = text.split('\n');
     for (let i = 0; i < lines.length; i++) {
-        globalStopWords.push(lines[i]);
-        // now that all functions are being called by textFileInputted, could probably replace global vars w/ params
+        let line = lines[i];
+        let [term, score] = line.split(',');
+        if ((score > 5) || (score < -5)) {
+            if (!termsList.includes(term)) {
+                termsList.push(term);
+            }
+        }
     }
+    return termsList;
+}
+
+function splitPlainTextLexicon(text) {
+    let termsList = [];
+    let lines = text.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+        let term = lines[i];
+        if (!termsList.includes(term)) {
+            termsList.push(term);
+        }
+    }
+    return termsList;
 }
 
 
@@ -157,23 +85,56 @@ function processStopWords(fileContent) {
 
 
 
+function selectScore(e) {
+    // runs when a score button is selected
+    let selectedScore = e.target.id;
+    let term = termsList[currTerm];
 
-
-
-
-
-
-
-
-
-
-
+    let line = term + ", " + selectedScore;
+    if (id("resultsSection").style.display == "none") {
+        id("resultsSection").style.display = "block"
+    }
+    appendTextElementToSection('p', id("newlyScoredTerms"), line)
+    clearAllRadioButtons();
+    displayNextToken();
+}
 
 function appendTextElementToSection(element, parentElement, text) {
     let e = gen(element);
     e.textContent = text;
     parentElement.append(e);
 }
+
+function clearAllRadioButtons() {
+    // need to do this, else the same radio button will remain checked between terms
+    let radioButtonList = document.getElementsByName("scores");
+    for (let i = 0; i < radioButtonList.length; i++)
+        radioButtonList[i].checked = false;
+}
+
+function displayNextToken() {
+    currTerm = currTerm + 1;
+    if (currTerm >= termsList.length) { // if we have reached the end of the termsList
+        id("term").textContent = "Congratulations, you've scored all the terms in the file!"
+    }
+    id("term").textContent = termsList[currTerm];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

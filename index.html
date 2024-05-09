@@ -7,8 +7,8 @@
     <title>Token Scoring Tool</title>
     <link rel="stylesheet" href="styles.css">
 
-    <!-- changing the favicon - tree planting icon by Icons8 - https://icons8.com/icon/65047/tree-planting" -->
-    <!-- <link rel="icon" href="icons8-tree-planting-96.png" type="image/png"> -->
+    <!-- changing the favicon - soil icon by Icons8 - https://icons8.com/icons/set/sapling -->
+    <link rel="icon" href="icons8-soil-96 3.png" type="image/png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,12 +25,12 @@
 
     <nav>
         <ul>
-            <!-- <li><a href="https://hannah627.github.io/sentiment-analysis/"><img src="icons8-tree-planting-96.png"
-                        alt="a light-skinned hand cupping a sprouting plant, with yellow sparkles rising from it"></a>
-            </li> -->
+            <li><a href="https://hannah627.github.io/token-scoring-tool/"><img src="icons8-soil-96 3.png"
+                        alt="a small green plant with two leafs sprouting from a lighter green ground"></a>
+            </li>
             <li><a href="https://hannah627.github.io/word-extraction-tool/">Word Extraction
                     Tool</a></li>
-            <li><a href="https://hannah627.github.io/word-extraction-tool/" id="activeNavbarLink">Token Scoring Tool</a></li>
+            <li><a href="https://hannah627.github.io/token-scoring-tool/" id="activeNavbarLink">Token Scoring Tool</a></li>
             <li><a href="https://hannah627.github.io/sentiment-analysis-tool/">Sentiment Analysis Tool</a>
             </li>
             <li><a href="https://travelogues.travelersinegypt.com/">Other Tools</a></li>
@@ -41,17 +41,83 @@
         <section id="explanationSection">
             <h2>Welcome!</h2>
             <p>This is a tool to help with building a custom sentiment analysis lexicon. It allows users to upload a
-                text, standardizes the words by removing capitalization and punctuation, removes basic stop words, and
-                then goes through each token in the text(s) one at a time. For each token, the user will have two
-                options - to add the word to a lexicon, or to ignore it. Regardless of the user's choice, the word will
-                be removed from the rest of the text so that it's only shown to the user once.</p>
+                a list of terms for a lexicon as a text file, or a csv file with the terms as the first column and scores as the second. If you don't have either of these, consider using the Word Extraction Tool.</p>
         </section>
         <!-- upload a lexicon or list of words - if lexicon, anything with a score other than -5 to 5 will be brought up -->
         <!-- need to make clear this is for scoring on a scale of -5 to 5 -->
 
         <section>
             <h2>Instructions</h2>
-            <p>Upload something :)</p>
+            <p>Upload a lexicon or list of terms to be scored</p>
+        </section>
+
+        <section id="inputSection">
+            <h2>Inputs</h2>
+            <div id="fileInputContainer">
+                <label class="large-label" for="inputFile">Select lexicon or list of terms to be scored:</label>
+                <input type="file" name="inputFile" id="inputFile" accept=".txt,.csv">
+            </div>
+        </section>
+
+        <section id="scoringSection">
+            <h2>Scoring</h2>
+            <p>Select the descriptor you think best fits the term displayed below:</p>
+            <div id="termSection" class="subSection">
+                <p id="term"></p>
+            </div>
+
+            <fieldset id="scoreSelectionRow" class="subSection">
+                <div>
+                    <label for="-5">Extremely Negative</label>
+                    <input type="radio" id="-5" name="scores">
+                </div>
+                <div>
+                    <label for="-4">Very Negative</label>
+                    <input type="radio" id="-4" name="scores">
+                </div>
+                <div>
+                    <label for="-3">Negative</label>
+                    <input type="radio" id="-3" name="scores">
+                </div>
+                <div>
+                    <label for="-2">Somewhat Negative</label>
+                    <input type="radio" id="-2" name="scores">
+                </div>
+                <div>
+                    <label for="-1">Slightly Negative</label>
+                    <input type="radio" id="-1" name="scores">
+                </div>
+
+                <div>
+                    <label for="1">Slightly Positive</label>
+                    <input type="radio" id="1" name="scores">
+                </div>
+                <div>
+                    <label for="2">Somewhat Positive</label>
+                    <input type="radio" id="2" name="scores">
+                </div>
+                <div>
+                    <label for="3">Positive</label>
+                    <input type="radio" id="3" name="scores">
+                </div>
+                <div>
+                    <label for="4">Very Positive</label>
+                    <input type="radio" id="4" name="scores">
+                </div>
+                <div>
+                    <label for="5">Extremely Positive</label>
+                    <input type="radio" id="5" name="scores">
+                </div>
+            </fieldset>
+        </section>
+
+        <section id="resultsSection">
+            <h2>Results</h2>
+            <p>Copy and paste this into your lexicon, or if you don't already have one, make a new CSV file and copy and paste the list below as the contents.</p>
+            <section id="newlyScoredTerms" class="subSection">
+
+            </section>
+
         </section>
 
     </main>
