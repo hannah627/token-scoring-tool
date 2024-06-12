@@ -27,6 +27,20 @@ main>section {
     background-color: #BECE7A;
 }
 
+
+.instructionsPara {
+    background-color: #D5E18C;
+}
+
+.instructionsPara:nth-child(odd) {
+    background-color: #ECF39E;
+}
+
+.instructionsPara:last-child {
+    background-color: #F2F7BC;
+}
+
+
 .subSection {
     background-color: #F2F7BC;
 }
@@ -34,7 +48,6 @@ main>section {
 body {
     background-color: #F7FBDA;
 }
-
 
 
 
@@ -175,6 +188,10 @@ input::file-selector-button {
     padding-right: 2rem;
 }
 
+.instructionsPara {
+    padding: 10px;
+    border-radius: 10px;
+}
 
 #fileInputContainer {
     display: flex;

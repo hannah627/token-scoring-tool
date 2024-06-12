@@ -22,11 +22,18 @@ function init() {
 
 
 function fileInputChange() {
+    if(id("errorSection")) { // delete error message if one is displayed
+        id("errorSection").remove();
+    }
+
+    id("scoringSection").style.display = "none";
+    id("term").textContent = "";
+
     let fileInput = id("inputFile");
     let fr = new FileReader();
     fr.onload = function () {
         let file_text = fr.result;
-        let file_type = fileInput.files[0].type;
+        let file_type = fileInput.files[0].type; // is it a csv or txt file
         processLexicon(file_text, file_type);
     }
     fr.readAsText(fileInput.files[0]);
@@ -42,8 +49,12 @@ function processLexicon(text, fileType) {
         termsList = splitPlainTextLexicon(text);
     }
 
-    id("term").textContent = termsList[currTerm];
-    id("scoringSection").style.display = "block";
+    if(termsList.length < 1) {
+        displayError()
+    } else {
+        id("term").textContent = termsList[currTerm];
+        id("scoringSection").style.display = "block";
+    }
 }
 
 function splitLexiconIntoTermsAndScores(text) {
@@ -75,7 +86,21 @@ function splitPlainTextLexicon(text) {
 
 
 
+function displayError() {
+    let main = document.getElementsByTagName('main')[0];
+    let errorSection = gen("section");
+    errorSection.id = "errorSection";
 
+    let heading = gen("h2");
+    heading.textContent = "Error";
+    errorSection.appendChild(heading);
+
+    let text = gen("p");
+    text.textContent = "Sorry, we didn't find any words in that file to score.";
+    errorSection.appendChild(text);
+
+    main.appendChild(errorSection);
+}
 
 
 
@@ -90,7 +115,7 @@ function selectScore(e) {
     let selectedScore = e.target.id;
     let term = termsList[currTerm];
 
-    let line = term + ", " + selectedScore;
+    let line = term + "," + selectedScore;
     if (id("resultsSection").style.display == "none") {
         id("resultsSection").style.display = "block"
     }
@@ -114,10 +139,10 @@ function clearAllRadioButtons() {
 
 function displayNextToken() {
     currTerm = currTerm + 1;
+    id("term").textContent = termsList[currTerm];
     if (currTerm >= termsList.length) { // if we have reached the end of the termsList
         id("term").textContent = "Congratulations, you've scored all the terms in the file!"
     }
-    id("term").textContent = termsList[currTerm];
 }
 
 

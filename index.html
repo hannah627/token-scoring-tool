@@ -40,15 +40,14 @@
     <main>
         <section id="explanationSection">
             <h2>Welcome!</h2>
-            <p>This is a tool to help with building a custom sentiment analysis lexicon. It allows users to upload a
-                a list of terms for a lexicon as a text file, or a csv file with the terms as the first column and scores as the second. If you don't have either of these, consider using the Word Extraction Tool.</p>
+            <p>This is a tool to help with building a custom sentiment analysis lexicon. It allows users to score words on a scale from -5 to 5, by uploading a list of terms for a lexicon as a text file, or a csv file with the terms as the first column and scores as the second. If you don't have either of these, consider using the Word Extraction Tool.</p>
         </section>
-        <!-- upload a lexicon or list of words - if lexicon, anything with a score other than -5 to 5 will be brought up -->
-        <!-- need to make clear this is for scoring on a scale of -5 to 5 -->
 
         <section>
             <h2>Instructions</h2>
-            <p>Upload a lexicon or list of terms to be scored</p>
+            <p class="instructionsPara">In the Inputs section, upload a sentiment lexicon or just a list of words that you want to score. If you don't have one, but would like to make one, try checking out the <a href="https://hannah627.github.io/word-extraction-tool/">Word Extraction Tool</a>. If you upload a lexicon, anything with a score outside the range of -5 to 5 will be brought up for you to score. If you upload a list of words, then all the words will be brought up.</p>
+            <p class="instructionsPara">After you upload a file, the first term to be scored will be displayed in the Scoring section. Underneath that will be a list of radio buttons, labeled from Extremely Negative to Extremely Positive. For each word, select the radio button with the label that best describes the emotional valence, or intensity, of the word. For example, "war" might be Very Negative while "delight" might be Very Positive.</p>
+            <p class="instructionsPara">As you continue using the tool, a list will be created underneath the scoring section, in the Results section. This list will consist of each term you've scored, along with the score from -5 to 5 that corresponds with the label you selected for that term. As the instructions in that section suggest, you can copy this list into an existing sentiment lexicon CSV, where the first column is the term and the second is the score, or into a new, empty CSV.</p>
         </section>
 
         <section id="inputSection">
