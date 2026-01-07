@@ -23,3 +23,11 @@ You can access the live version of the tool here: **[Token Scoring Tool](https:/
     *   As you score each term, it will be added to the "Results" section in the format `term,score`.
     *   The next term to be scored will appear automatically.
 5.  **Save Your Work**: Once all terms have been scored, copy the entire list from the "Results" section and paste it into a new or existing `.csv` file.
+
+##  Background
+Created by **Hannah Burrows** as part of a **University of Washington capstone project (Winter & Spring 2024).**
+
+## License
+**Creative Commons Attribution 4.0 International (CC BY 4.0)**
+
+If you publish or reuse this project, please provide attribution to the original author.
